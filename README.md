@@ -1,4 +1,4 @@
-#  Hardhat Project
+#  Hardhat Project(Calling off-chain API using external adapters of Chainink)
 
 1) create .env file
 
