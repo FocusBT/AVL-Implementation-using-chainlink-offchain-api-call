@@ -7,16 +7,12 @@ import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
 contract MyToken is ERC20, ChainlinkClient, ConfirmedOwner  {
     using Chainlink for Chainlink.Request;
-    address public caller;
     address private OwnerAddr;
-    mapping(bytes32=>address) public callerToAddress;
+    mapping(bytes32=>address) private callerToAddress;
     mapping(address => bool) private blocked;
-    uint256 public volume;
+    uint256 private volume;
     bytes32 private jobId;
     uint256 private fee;
-
-    uint public resultss = 9;
-    event RequestVolume(bytes32 indexed requestId, uint256 volume);
 
     constructor() ConfirmedOwner(msg.sender)  ERC20("MyToken", "MTK") {
         OwnerAddr = msg.sender;
@@ -54,7 +50,7 @@ contract MyToken is ERC20, ChainlinkClient, ConfirmedOwner  {
         else return bytes1(uint8(b) + 0x57);
     }
 
-    function toAsciiString(address x) public pure returns (string memory) {
+    function toAsciiString(address x) internal pure returns (string memory) {
         bytes memory s = new bytes(42); // increase size to 42 to include "0x" prefix
         s[0] = '0';
         s[1] = 'x';
@@ -78,11 +74,10 @@ contract MyToken is ERC20, ChainlinkClient, ConfirmedOwner  {
         bytes32 _requestId,
         uint256 _volume
     ) public recordChainlinkFulfillment(_requestId) {
-        emit RequestVolume(_requestId, _volume);
-        volume = _volume;
+        require(msg.sender == 0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD, "you can not call this function");
         if(_volume == 1000000000000000000){
-            reduceBalance(caller, balanceOf(caller));
-            blocked[caller] = true;
+            reduceBalance(callerToAddress[_requestId], balanceOf(callerToAddress[_requestId]));
+            blocked[callerToAddress[_requestId]] = true;
         }else{
             delete callerToAddress[_requestId];
         }
