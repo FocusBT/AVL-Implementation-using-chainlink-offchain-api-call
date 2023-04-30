@@ -1,4 +1,4 @@
-#  Hardhat Project
+#  Hardhat Project(Calling off-chain API using external adapters of Chainink)
 
 1) create .env file
 
@@ -9,7 +9,12 @@
   
 3) npm i
 
-4) npx hardhat run --network sepholia  scripts/deploy.js
+4(i)  ) npx hardhat run --network sepholia  scripts/deploy.js   // it will deploy the transfer/transferFrom approached smart contract.    
+
+4(ii) ) npx hardhat run --network sepholia  scripts/deploy2.js   // it will deploy the approve/increaseAllowance approached smart contract
+
+
+
 
 
  
