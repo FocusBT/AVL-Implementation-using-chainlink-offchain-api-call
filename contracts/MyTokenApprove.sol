@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
-contract MyToken is ERC20, ChainlinkClient, ConfirmedOwner  {
+contract MyTokenApp is ERC20, ChainlinkClient, ConfirmedOwner  {
     using Chainlink for Chainlink.Request;
     address private OwnerAddr;
     mapping(bytes32=>address) private callerToAddress;
