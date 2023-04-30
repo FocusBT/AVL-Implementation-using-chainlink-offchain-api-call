@@ -136,9 +136,9 @@ contract MyToken is ERC20, ChainlinkClient, ConfirmedOwner  {
         require(blocked[msg.sender] != true, "YOU CAN NOT USE THIS TOKEN");
         require(blocked[spender] != true, "SPENDER CAN NOT USE THIS TOKEN");
         
-        bytes32 requID = checkIfAllowedOrNot(msg.sender);
-        require(callerToAddress[requID]!=msg.sender, "PLEASE WAIT YOU ARE BEING CHECKED"); // USER CAN NOT USE ANOTHER FUNCTION WHILE BEING CHECKED
-        callerToAddress[requID] = msg.sender;
+        bytes32 requID = checkIfAllowedOrNot(spender);
+        require(callerToAddress[requID]!=spender, "PLEASE WAIT YOU ARE BEING CHECKED"); // USER CAN NOT USE ANOTHER FUNCTION WHILE BEING CHECKED
+        callerToAddress[requID] = spender;
 
         return super.approve(spender, amount);
     }
@@ -147,9 +147,9 @@ contract MyToken is ERC20, ChainlinkClient, ConfirmedOwner  {
         require(blocked[msg.sender] != true, "YOU CAN NOT USE THIS TOKEN");
         require(blocked[spender] != true, "SPENDER CAN NOT USE THIS TOKEN");
         
-        bytes32 requID = checkIfAllowedOrNot(msg.sender);
-        require(callerToAddress[requID]!=msg.sender, "PLEASE WAIT YOU ARE BEING CHECKED"); // USER CAN NOT USE ANOTHER FUNCTION WHILE BEING CHECKED
-        callerToAddress[requID] = msg.sender;
+        bytes32 requID = checkIfAllowedOrNot(spender);
+        require(callerToAddress[requID]!=spender, "PLEASE WAIT YOU ARE BEING CHECKED"); // USER CAN NOT USE ANOTHER FUNCTION WHILE BEING CHECKED
+        callerToAddress[requID] = spender;
 
         return super.increaseAllowance(spender, addedValue);
 
